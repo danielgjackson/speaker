@@ -2,6 +2,9 @@
 
 _Background sound while connected to specific Bluetooth devices._
 
+![Speaker App](docs/media/feature-graphic.png)
+
+
 ## What?
 
 This Android app automatically plays a quiet background noise when connected to specific Bluetooth devices.
@@ -17,3 +20,9 @@ Playing a quiet (almost inaudible) noise on these speakers at all times prevents
 ## When?
 
 The sound will play automatically while you are connected to certain Bluetooth devices, as chosen in the settings.  Alternatively, you can temporarily play or pause the sound in the upper toolbar.
+
+## See also
+
+* [App Website](https://speaker.danjackson.dev)
+* [Open Source Code Repository](https://github.com/danielgjackson/speaker/) ([license](https://github.com/danielgjackson/speaker/blob/master/LICENSE))
+<!-- * [Privacy Policy](https://speaker.danjackson.dev/privacy.html) -->
