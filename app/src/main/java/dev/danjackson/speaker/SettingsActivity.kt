@@ -45,7 +45,7 @@ class SettingsActivity : AppCompatActivity() {
             val selectedDevices = sharedPreferences.getStringSet("device_list", setOf<String>()).orEmpty()
 
             // Get bonded devices
-            val bondedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
+            val bondedDevices = BluetoothAdapter.getDefaultAdapter()?.bondedDevices.orEmpty()
             val bondedDeviceNames = mutableListOf<String>()
             bondedDevices.forEach { bluetoothDevice ->
                 bondedDeviceNames.add(bluetoothDevice.name)

@@ -4,7 +4,7 @@ _Background sound while connected to specific Bluetooth devices._
 
 ## What?
 
-This Android app automatically plays a quiet background noise when connected to certain Bluetooth devices.
+This Android app automatically plays a quiet background noise when connected to specific Bluetooth devices.
 
 ## Why?
 

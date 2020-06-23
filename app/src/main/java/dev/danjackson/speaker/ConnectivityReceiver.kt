@@ -17,10 +17,10 @@ class ConnectivityReceiver : BroadcastReceiver() {
                 BluetoothProfile.EXTRA_STATE,
                 -1
             )
-            val previousState = intent.getIntExtra(
-                BluetoothProfile.EXTRA_PREVIOUS_STATE,
-                -1
-            )
+            //val previousState = intent.getIntExtra(
+            //    BluetoothProfile.EXTRA_PREVIOUS_STATE,
+            //    -1
+            //)
 
             //val text = "CONNECTION_STATE_CHANGED: $previousState -> $state ${device?.name}"
             //println(">>> $text")

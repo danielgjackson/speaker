@@ -27,13 +27,15 @@ class MainActivity : AppCompatActivity() {
         val monitor = Monitor.getInstance(applicationContext)
 
         monitor.summary.observe(this, Observer {
-            var deviceSummary: String = "";
 
-            if (it == null) deviceSummary = "\uD83D\uDD07" // 🔇
-            else if (it.count() > 0) deviceSummary = it.joinToString(prefix = "\uD83D\uDD09 ", separator = "; \uD83D\uDD09 ", postfix = ".") // 🔉
-            else deviceSummary = applicationContext.getString(R.string.device_list_summary)  // "⚠️"
+            val deviceSummary =
+                // Summary changes when preferences (including device selection) changes
+                when {
+                    it == null -> "\uD83D\uDD07"
+                    it.count() > 0 -> it.joinToString(prefix = "\uD83D\uDD09 ", separator = "; \uD83D\uDD09 ", postfix = ".") // 🔉
+                    else -> applicationContext.getString(R.string.device_list_summary)
+                }  // "⚠️"
 
-            // Summary changes when preferences (including device selection) changes
             val text: String = getString(R.string.info_text, deviceSummary)
 
             val styledText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)

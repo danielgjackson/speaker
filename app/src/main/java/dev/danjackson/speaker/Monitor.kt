@@ -16,7 +16,7 @@ import kotlin.math.ln
 
 class Monitor(private var applicationContext: Context) {
 
-    private val bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+    private val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
     private var sharedPreferencesListener: OnSharedPreferenceChangeListener? = null
 
@@ -47,7 +47,7 @@ class Monitor(private var applicationContext: Context) {
         val listed = arrayListOf<String>()
 
         // Ignore everything if Autoplay disabled or Bluetooth is not enabled
-        if (!autoplay || bluetoothAdapter.isEnabled) {
+        if (!autoplay || bluetoothAdapter?.isEnabled == true) {
             // If we've just been told a listed device is connected, trust this fact (in case it doesn't show up in the list)
             if (deviceName != null && triggerDevices.contains(deviceName) && deviceConnected) listed.add(deviceName)
 
