@@ -1,4 +1,4 @@
-# Speaker
+# Speaker - Bluetooth Background Sound
 
 _Background sound while connected to specific Bluetooth devices._
 
