@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Speaker</string>
+
+    <string name="info_text">
+        "&lt;h3>What?&lt;/h3>\n"
+        "&lt;p>This app automatically plays a quiet background noise when you are connected to certain Bluetooth devices.&lt;/p>\n"
+        "&lt;h3>Why?&lt;/h3>\n"
+        "&lt;p>This fixes problems with some Bluetooth speakers where, following silence, the speaker misses the first part of the next sound that is played.  This is most apparent with intermittent sounds, such as speech.  For example, when listening to an audiobook, the first part of each sentence may often be missed.&lt;/p>\n"
+        "&lt;h3>How?&lt;/h3>\n"
+        "&lt;p>Playing a quiet (almost inaudible) noise on these speakers at all times prevents any periods of total silence and so avoids this problem.&lt;/p>\n"
+        "&lt;h3>When?&lt;/h3>\n"
+        "&lt;p>The sound will play automatically while you are connected to certain Bluetooth devices, as chosen in the settings.  Alternatively, you can temporarily play or pause the sound in the upper toolbar.&lt;/p>\n"
+        "&lt;p>The auto-play device list is currently:&lt;/p>\n"
+        "&lt;p>&lt;i>%1$s &lt;/i>&lt;/p>"
+    </string>
+
+    <string name="action_play">Play</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="notification_title">Speaker</string>
+    <string name="notification_message">Background sound playing</string>
+    <string name="notification_ticker_text">Chosen Bluetooth speaker connected: background sound playing.</string>
+
+    <string name="backgroundsound_description">Background sound player for Speaker App</string>
+    <string name="title_activity_settings">Speaker Settings</string>
+
+    <!-- Preference Section: Autoplay -->
+    <string name="devices_header">Autoplay</string>
+
+    <!-- Autoplay Preferences -->
+    <string name="autoplay_title">Enable Autoplay</string>
+    <string name="autoplay_on">Automatically play background sound when attached to selected devices.</string>
+    <string name="autoplay_off">Never automatically play background sound.</string>
+
+    <!-- Device List Preferences -->
+    <string name="device_list_title">Autoplay on Bluetooth Devices</string>
+    <string name="device_list_summary">⚠️ (none)\n→ Never automatically play background sound.</string>
+    <string name="device_list_dialog_title">Connected Device Autoplay</string>
+
+    <!-- Preference Section: Background Sound -->
+    <string name="system_header">Background Sound</string>
+
+    <!-- Sound Preferences -->
+    <string name="sound_title">Background Sound Type</string>
+
+    <!-- Volume Preferences -->
+    <string name="volume_title">Volume</string>
+    <string name="volume_summary">1/1000ths (= 0-10%)</string>
+
+</resources>

@@ -1,0 +1,23 @@
+<resources>
+    <!-- Sound Preference -->
+    <string-array name="sound_entries">
+        <item>Brown Noise</item>
+    </string-array>
+
+    <string-array name="sound_values">
+        <item>brown</item>
+    </string-array>
+
+    <!-- the "id" values -->
+    <string-array name="device_list_values">
+    </string-array>
+
+    <!-- the human readable names -->
+    <string-array name="device_list_entries">
+    </string-array>
+
+    <!-- the default ids selected -->
+    <string-array name="device_list_defaults">
+    </string-array>
+
+</resources>
