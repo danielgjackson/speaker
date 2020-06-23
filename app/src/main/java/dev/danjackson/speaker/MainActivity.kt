@@ -1,4 +1,4 @@
-package uk.co.danieljackson.speaker
+package dev.danjackson.speaker
 
 import android.content.Intent
 import android.os.Build

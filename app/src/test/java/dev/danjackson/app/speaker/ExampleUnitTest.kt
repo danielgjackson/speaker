@@ -1,4 +1,4 @@
-package uk.co.danieljackson.speaker
+package dev.danjackson.speaker
 
 import org.junit.Test
 

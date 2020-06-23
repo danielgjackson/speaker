@@ -1,8 +1,7 @@
-package uk.co.danieljackson.speaker
+package dev.danjackson.speaker
 
 import android.bluetooth.BluetoothAdapter
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.MultiSelectListPreference

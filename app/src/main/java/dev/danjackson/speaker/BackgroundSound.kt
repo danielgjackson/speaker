@@ -1,4 +1,4 @@
-package uk.co.danieljackson.speaker
+package dev.danjackson.speaker
 
 import android.app.*
 import android.content.Context

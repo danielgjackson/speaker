@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="uk.co.danieljackson.speaker.MainActivity">
+    tools:context="dev.danjackson.speaker.MainActivity">
     <item
         android:id="@+id/action_play"
         android:orderInCategory="90"
