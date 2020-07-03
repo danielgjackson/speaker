@@ -24,5 +24,6 @@ The sound will play automatically while you are connected to certain Bluetooth d
 ## See also
 
 * [App Website](https://speaker.danjackson.dev)
-* [Open Source Code Repository](https://github.com/danielgjackson/speaker/) ([license](https://github.com/danielgjackson/speaker/blob/master/LICENSE))
+* [Google Play Store Listing](https://play.google.com/store/apps/details?id=dev.danjackson.speaker)
+<!-- * [Open Source Code Repository](https://github.com/danielgjackson/speaker/) ([license](https://github.com/danielgjackson/speaker/blob/master/LICENSE)) -->
 <!-- * [Privacy Policy](https://speaker.danjackson.dev/privacy.html) -->
