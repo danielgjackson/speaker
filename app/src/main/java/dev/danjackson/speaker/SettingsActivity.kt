@@ -1,9 +1,15 @@
 package dev.danjackson.speaker
 
+import android.Manifest
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -23,32 +29,31 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat() {
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-
+        // Update multi-select, only require unselected elements when showing full list (requires permission)
+        private fun refresh(showUnselected: Boolean) {
             // --- Device List Multi Select ---
             val deviceListPreference: MultiSelectListPreference? = findPreference("device_list")
 
-            // Summary provider
-            deviceListPreference?.summaryProvider =
-                Preference.SummaryProvider<MultiSelectListPreference> { preference ->
-                    val values = preference.values.orEmpty()
-                    if (values.isEmpty()) {
-                        getText(R.string.device_list_summary)
-                    } else {
-                        values.toTypedArray().joinToString(separator = "\n")
-                    }
-                }
-
             // Get current list
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
             val selectedDevices = sharedPreferences.getStringSet("device_list", setOf<String>()).orEmpty()
 
-            // Get bonded devices
-            val bondedDevices = BluetoothAdapter.getDefaultAdapter()?.bondedDevices.orEmpty()
+            // Start with no bonded devices
             val bondedDeviceNames = mutableListOf<String>()
-            bondedDevices.forEach { bluetoothDevice ->
-                bondedDeviceNames.add(bluetoothDevice.name)
+
+            // Get bonded devices
+            if (showUnselected) {
+                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                    val bluetoothManager =
+                        requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+                    val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
+                    val bondedDevices = bluetoothAdapter?.bondedDevices.orEmpty()
+                    bondedDevices.forEach { bluetoothDevice ->
+                        bondedDeviceNames.add(bluetoothDevice.name)
+                    }
+                } else {
+                    Toast.makeText(requireContext(),"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
+                }
             }
 
             // Union of the current selection and the available devices
@@ -69,7 +74,27 @@ class SettingsActivity : AppCompatActivity() {
             }
             deviceListPreference?.entries = entryDisplay.toTypedArray()
             deviceListPreference?.entryValues = entryValues.toTypedArray()
+        }
 
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+
+            // --- Device List Multi Select ---
+            val deviceListPreference: MultiSelectListPreference? = findPreference("device_list")
+
+            // Summary provider
+            deviceListPreference?.summaryProvider =
+                Preference.SummaryProvider<MultiSelectListPreference> { preference ->
+                    val values = preference.values.orEmpty()
+                    if (values.isEmpty()) {
+                        getText(R.string.device_list_summary)
+                    } else {
+                        values.toTypedArray().joinToString(separator = "\n")
+                    }
+                }
+
+            // TODO: false when constructed, call again with true when open details
+            refresh(true)
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

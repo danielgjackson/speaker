@@ -1,6 +1,7 @@
 package dev.danjackson.speaker
 
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothProfile
 import android.content.Context
 import android.content.Intent
@@ -15,8 +16,6 @@ import kotlin.math.ln
 
 
 class Monitor(private var applicationContext: Context) {
-
-    private val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
     private var sharedPreferencesListener: OnSharedPreferenceChangeListener? = null
 
@@ -46,6 +45,9 @@ class Monitor(private var applicationContext: Context) {
     private fun refreshState(deviceName: String?, deviceConnected: Boolean) {
         val listed = arrayListOf<String>()
 
+        val bluetoothManager = applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
+
         // Ignore everything if Autoplay disabled or Bluetooth is not enabled
         if (!autoplay || bluetoothAdapter?.isEnabled == true) {
             // If we've just been told a listed device is connected, trust this fact (in case it doesn't show up in the list)
@@ -65,7 +67,7 @@ class Monitor(private var applicationContext: Context) {
             }
         }
 
-        if (listed.count() > 0) {
+        if (listed.isNotEmpty()) {
             //println("!!! CONNECTED: $listed !!! --> PLAY")
             play()
         } else {

@@ -28,3 +28,15 @@ The sound will play automatically while you are connected to certain Bluetooth d
 * [Install directly from APK](https://github.com/danielgjackson/speaker/releases)
 <!-- * [Open Source Code Repository](https://github.com/danielgjackson/speaker/) ([license](https://github.com/danielgjackson/speaker/blob/master/LICENSE)) -->
 <!-- * [Privacy Policy](https://speaker.danjackson.dev/privacy.html) -->
+
+<!--
+Releases:
+
+* Update versionCode in: `app/build.gradle`
+* Update versionName in: `app/build.gradle`
+* Add `metadata/en-US/changelogs/$versionCode.txt`
+* Build signed APK, rename to: speaker-$versionName.apk
+* Create release with APK attached named: $versionName
+* Build signed AAB
+* Create new release on Google Play Console
+-->
