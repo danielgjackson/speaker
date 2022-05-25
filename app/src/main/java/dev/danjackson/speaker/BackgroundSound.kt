@@ -26,7 +26,11 @@ class BackgroundSound : Service() {
 
         val pendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
             addNextIntentWithParentStack(Intent(this@BackgroundSound, MainActivity::class.java))
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+            } else {
+                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            }
         }
 
         val notificationBuilder = NotificationCompat.Builder(applicationContext, cid)
