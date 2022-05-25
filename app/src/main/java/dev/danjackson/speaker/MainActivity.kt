@@ -108,11 +108,13 @@ class MainActivity : AppCompatActivity() {
                         }
                         setPositiveButton("Cancel") { _, _ ->
                             Toast.makeText(applicationContext,"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
+                            openSettings()
                         }
                         show()
                     }
                 } else {
                     Toast.makeText(applicationContext,"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
+                    openSettings()
                 }
             }
         }
