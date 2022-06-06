@@ -9,6 +9,13 @@ _Background sound while connected to specific Bluetooth devices._
 
 This Android app automatically plays a quiet background noise when connected to specific Bluetooth devices.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/dev.danjackson.speaker/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=dev.danjackson.speaker)
+
 ## Why?
 
 This fixes problems with some Bluetooth speakers where, following silence, the speaker misses the first part of the next sound that is played.  This is most apparent with intermittent sounds, such as speech.  For example, when listening to an audiobook, the first part of each sentence may often be missed.
@@ -24,7 +31,6 @@ The sound will play automatically while you are connected to certain Bluetooth d
 ## See also
 
 * [App Website](https://speaker.danjackson.dev)
-* [Google Play Store Listing](https://play.google.com/store/apps/details?id=dev.danjackson.speaker)
 * [Install directly from APK](https://github.com/danielgjackson/speaker/releases)
 <!-- * [Open Source Code Repository](https://github.com/danielgjackson/speaker/) ([license](https://github.com/danielgjackson/speaker/blob/master/LICENSE)) -->
 <!-- * [Privacy Policy](https://speaker.danjackson.dev/privacy.html) -->
