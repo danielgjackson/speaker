@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -43,7 +44,7 @@ class SettingsActivity : AppCompatActivity() {
 
             // Get bonded devices
             if (showUnselected) {
-                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
                     val bluetoothManager =
                         requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
                     val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter

@@ -40,3 +40,22 @@ Releases:
 * Build signed AAB
 * Create new release on Google Play Console
 -->
+
+<!--
+FDroid:
+
+```bash
+# See: https://gitlab.com/fdroid/fdroiddata/blob/master/CONTRIBUTING.md#building-it
+cd fdroiddata
+git checkout dev.danjackson.speaker
+fdroid readmeta
+fdroid checkupdates dev.danjackson.speaker
+vi metadata/dev.danjackson.speaker.yml # versionName/versionCode/commit
+fdroid lint dev.danjackson.speaker
+fdroid rewritemeta dev.danjackson.speaker
+fdroid build -v -l dev.danjackson.speaker
+git add metadata/dev.danjackson.speaker.yml
+git commit -m "Updated metadata"
+git push
+```
+-->
