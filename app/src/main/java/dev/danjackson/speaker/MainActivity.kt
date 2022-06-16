@@ -5,16 +5,16 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.text.Html.*
 import android.text.method.ScrollingMovementMethod
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.text.parseAsHtml
+import dev.danjackson.speaker.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,11 +22,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        val binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
-        val infoTextView = findViewById<TextView>(R.id.info_text_view)
-        infoTextView.movementMethod = ScrollingMovementMethod()
+        binding.infoTextView.movementMethod = ScrollingMovementMethod()
 
         val monitor = Monitor.getInstance(applicationContext)
 
@@ -45,13 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }  // "⚠️"
 
             val text: String = getString(R.string.info_text, deviceSummary)
-
-            val styledText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                fromHtml(text, FROM_HTML_MODE_LEGACY)
-            else @Suppress("DEPRECATION")
-            fromHtml(text)
-
-            infoTextView.text = styledText
+            binding.infoTextView.text = text.parseAsHtml()
         }
 
         monitor.playing.observe(this) {
@@ -87,40 +81,36 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults.isNotEmpty()) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openSettings()
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH_CONNECT)) {
-                    val builder = AlertDialog.Builder(this)
-                    with(builder)
-                    {
-                        setTitle("Bluetooth Connect Permission")
-                        setMessage("To list your paired devices, this app requires Bluetooth Connect permission.")
-                        setPositiveButton("OK") { _, _ ->
-
-                        }
-                        setPositiveButton("Cancel") { _, _ ->
-                            Toast.makeText(applicationContext,"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
-                            openSettings()
-                        }
-                        show()
-                    }
-                } else {
-                    Toast.makeText(applicationContext,"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
-                    openSettings()
-                }
-            }
+    private val requestPermissionLauncher = registerForActivityResult(RequestPermission()) {
+            isGranted: Boolean ->
+        if (isGranted) {
+            openSettings()
+        } else {
+            showPermissionRationale()
         }
     }
 
-    private val bluetoothConnectRequestCode = 1
+    private fun showPermissionRationale() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH_CONNECT)) {
+            AlertDialog.Builder(this)
+                .setTitle("Bluetooth Connect Permission")
+                .setMessage("To list your paired devices, this app requires Bluetooth Connect permission.")
+                .setPositiveButton("OK", null)
+                .setPositiveButton("Cancel") { _, _ ->
+                    Toast.makeText(applicationContext, R.string.bluetooth_permission_error, Toast.LENGTH_SHORT).show()
+                    openSettings()
+                }
+                .show()
+        } else {
+            Toast.makeText(applicationContext, R.string.bluetooth_permission_error, Toast.LENGTH_SHORT).show()
+            openSettings()
+        }
+    }
+
+    private val isBluetoothPermissionDenied: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -129,8 +119,8 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 // Prompt for Bluetooth permission if required
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), bluetoothConnectRequestCode)
+                if (isBluetoothPermissionDenied) {
+                    requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT)
                 } else {
                     openSettings()
                 }

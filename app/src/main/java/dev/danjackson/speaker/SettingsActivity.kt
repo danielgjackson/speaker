@@ -15,15 +15,17 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import dev.danjackson.speaker.databinding.SettingsActivityBinding
 
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        val binding = SettingsActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
+            .replace(binding.settings.id, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -53,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
                         bondedDeviceNames.add(bluetoothDevice.name)
                     }
                 } else {
-                    Toast.makeText(requireContext(),"Cannot list devices without Bluetooth Connect permission", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.bluetooth_permission_error, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -77,8 +79,8 @@ class SettingsActivity : AppCompatActivity() {
             deviceListPreference?.entryValues = entryValues.toTypedArray()
         }
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            addPreferencesFromResource(R.xml.root_preferences)
 
             // --- Device List Multi Select ---
             val deviceListPreference: MultiSelectListPreference? = findPreference("device_list")
@@ -96,10 +98,6 @@ class SettingsActivity : AppCompatActivity() {
 
             // TODO: false when constructed, call again with true when open details
             refresh(true)
-        }
-
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
     }
 

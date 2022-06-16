@@ -48,4 +48,6 @@
     <string name="volume_title">Volume</string>
     <string name="volume_summary">1/1000ths (= 0-10%)</string>
 
+    <!-- Errors -->
+    <string name="bluetooth_permission_error">Cannot list devices without Bluetooth Connect permission</string>
 </resources>
