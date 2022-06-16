@@ -10,6 +10,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import kotlin.math.ln
@@ -96,11 +97,7 @@ class Monitor(private var applicationContext: Context) {
 
         if (playing) {
             intent.putExtra("start", playing)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                applicationContext.startForegroundService(intent)
-            } else {
-                applicationContext.startService(intent)
-            }
+            ContextCompat.startForegroundService(applicationContext, intent)
         } else {
             applicationContext.stopService(intent)
         }
