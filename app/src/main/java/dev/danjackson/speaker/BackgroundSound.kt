@@ -38,7 +38,7 @@ class BackgroundSound : Service() {
             .setContentTitle(getText(R.string.notification_title))
             .setContentText(getText(R.string.notification_message))
             //.setTicker(getText(R.string.notification_ticker_text))
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_surround_sound)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_MIN)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)

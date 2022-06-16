@@ -6,19 +6,19 @@
         android:id="@+id/action_play"
         android:orderInCategory="90"
         android:title="@string/action_play"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/ic_play_arrow"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_pause"
         android:orderInCategory="90"
         android:title="@string/action_pause"
-        android:icon="@android:drawable/ic_media_pause"
+        android:icon="@drawable/ic_pause"
         app:showAsAction="always"
         android:visible="false" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_action_settings"
+        android:icon="@drawable/ic_settings"
         app:showAsAction="always" />
 </menu>
