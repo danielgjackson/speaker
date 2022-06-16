@@ -8,13 +8,13 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.text.parseAsHtml
+import dev.danjackson.speaker.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,11 +22,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        val binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
-        val infoTextView = findViewById<TextView>(R.id.info_text_view)
-        infoTextView.movementMethod = ScrollingMovementMethod()
+        binding.infoTextView.movementMethod = ScrollingMovementMethod()
 
         val monitor = Monitor.getInstance(applicationContext)
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }  // "⚠️"
 
             val text: String = getString(R.string.info_text, deviceSummary)
-            infoTextView.text = text.parseAsHtml()
+            binding.infoTextView.text = text.parseAsHtml()
         }
 
         monitor.playing.observe(this) {
